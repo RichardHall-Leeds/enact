@@ -5,6 +5,7 @@ import com.microsoft.playwright.*;
 import java.util.List;
 
 // co-pilot session id 5c2cd444-bbab-45d3-976a-2aba8e532cd0
+// co-pilot 28/05
 public class DemoQaForm {
     public static void main(String[] args) {
         try (Playwright playwright = Playwright.create();
@@ -85,7 +86,19 @@ public class DemoQaForm {
 
             // state and city code to go here
 
-            submit_button.click();
+
+            // ✅ click away from form (KEY FIX)
+            page.locator("body").click();
+
+            // ✅ ensure submit is visible and stable
+            submit_button.scrollIntoViewIfNeeded();
+
+            // ✅ optional stabilisation
+            page.waitForTimeout(500);
+
+            // ✅ force click avoids overlay issues
+            submit_button.click(new Locator.ClickOptions().setForce(true));
+
             System.out.println("Form submitted successfully!");
 
             // code to assert result table

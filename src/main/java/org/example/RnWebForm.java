@@ -7,17 +7,22 @@ import java.util.List;
 
 public class RnWebForm {
     public static void main(String[] args) {
-        // System.out.println("Hello World!");
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         BrowserContext context = browser.newContext();
         Page page = context.newPage();
-        page.navigate("https://demoqa.com/automation-practice-form/");
+        page.navigate("https://www.selenium.dev/selenium/web/web-form.html");
 
 
         // inputs
-        final String FIRSTNAME = "Richard";
-        final String LASTNAME = "Hall";
+        final String TEXT_INPUT = "You're really growing on me, (Or am I growing on you)";
+        final String PASSWORD = "England1996";
+        List<String> TEXTAREA = List.of(
+                "123 Example Street",
+                "Flat 4B",
+                "Leeds",
+                "LS1 1AA"
+        );
         final String EMAIL = "richard@email.com";
         final String MOBILENUMBER = "1234567890";
         final String DATEOFBIRTH = "11 May 1901";
@@ -26,12 +31,7 @@ public class RnWebForm {
         List<String> SUBJECTS = List.of(SUBJECT1, SUBJECT2);
         final String HOBBY1 = "Sports";
         final String HOBBY2 = "Reading";
-        List<String> ADDRESSLINES = List.of(
-                "123 Example Street",
-                "Flat 4B",
-                "Leeds",
-                "LS1 1AA"
-        );
+
         final String STATE = "NCR";
         final String CITY = "Lucknow";
 
