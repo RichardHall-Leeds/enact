@@ -2,6 +2,7 @@ package org.example;
 
 import com.microsoft.playwright.*;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -31,9 +32,9 @@ public class RnWebForm {
         final String DROPDOWN_SELECT = "Three";
         final String DROPDOWN_DATALIST = "San Francisco";
         final String COLOR_PICKER = "#ff0000";
+        final String FILE_INPUT = "src/test/resources/Test_Document.txt";  // need to create this file for the test to work - also need to check how this works on different OS's - is there a way to make it dynamic?
         final String DATE_PICKER_TEXT_ENTRY = "05/01/1999";
         final String DATE_PICKER_PICKER_ENTRY = "15";
-        final String RANGE_SLIDER = "10";
 
         // file input
 
@@ -46,6 +47,7 @@ public class RnWebForm {
         Locator returnToIndex = page.getByText("Return to index");
         Locator dropdownSelect = page.locator("select[name='my-select']");
         Locator dropdownDataList = page.locator("input[placeholder='Type to search...']");  // i would like assert the label that displays when its populated
+        Locator fileInput = page.locator("input[name='my-file']");
         Locator checkedCheckboxUntick = page.getByLabel("Checked checkbox");
         Locator defaultCheckbox = page.getByLabel("Default checkbox");
         Locator defaultRadio = page.getByLabel("Default radio");
@@ -80,11 +82,21 @@ public class RnWebForm {
         checkedCheckboxUntick.click();
         defaultCheckbox.click();
         defaultRadio.click();
+        fileInput.setInputFiles(Paths.get(FILE_INPUT));
         colorPicker.fill(COLOR_PICKER);
         datePicker.fill(DATE_PICKER_TEXT_ENTRY); // first flow exercised - user enters date as text
         page.locator("td.day").getByText(DATE_PICKER_PICKER_ENTRY).click(); // second flow: in addition asserts the date picker clicking works
         page.locator("body").click();  // user clicks away to close the date picker - matching how the user would use the ui -
-        rangeSlider.fill(RANGE_SLIDER);
+        rangeSlider.press("ArrowRight");  // this series verifies a user cliking right to the boundary and then back left down to the middle setting
+        rangeSlider.press("ArrowRight");
+        rangeSlider.press("ArrowRight");
+        rangeSlider.press("ArrowRight");
+        rangeSlider.press("ArrowRight");
+        rangeSlider.press("ArrowLeft");
+        rangeSlider.press("ArrowLeft");
+        rangeSlider.press("ArrowLeft");
+        rangeSlider.press("ArrowLeft");
+        rangeSlider.press("ArrowLeft");
 
 
 
