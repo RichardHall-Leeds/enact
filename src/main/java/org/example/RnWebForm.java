@@ -5,6 +5,8 @@ import com.microsoft.playwright.*;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 
 public class RnWebForm {
     public static void main(String[] args) {
@@ -32,11 +34,12 @@ public class RnWebForm {
         final String DROPDOWN_SELECT = "Three";
         final String DROPDOWN_DATALIST = "San Francisco";
         final String COLOR_PICKER = "#ff0000";
-        final String FILE_INPUT = "src/test/resources/Test_Document.txt";  // need to create this file for the test to work - also need to check how this works on different OS's - is there a way to make it dynamic?
+        final String FILE_INPUT = "src/main/resources/Test_Document.txt";  // need to create this file for the test to work - also need to check how this works on different OS's - is there a way to make it dynamic?
         final String DATE_PICKER_TEXT_ENTRY = "05/01/1999";
         final String DATE_PICKER_PICKER_ENTRY = "15";
+        final String RESULTS_PAGE_HEADING = "Form submitted";
+        final String RESULTS_PAGE_MESSAGE = "Received!";
 
-        // file input
 
         // locators
         Locator textInput = page.locator("#my-text-id");
@@ -54,6 +57,9 @@ public class RnWebForm {
         Locator colorPicker = page.getByLabel("Color picker");
         Locator datePicker = page.getByLabel("Date picker");  // ask co-pilot if getbylable stronger than page.locator?  also john said use different ways
         Locator rangeSlider = page.getByLabel("Example range");
+        Locator submit_button = page.getByText("Submit");
+        Locator resultHeading = page.getByText("Form submitted");
+        Locator resultMessage = page.getByText("Received!");
 
         // actions on page
         textInput.fill(TEXT_INPUT);
@@ -79,10 +85,10 @@ public class RnWebForm {
 
         dropdownSelect.selectOption(DROPDOWN_SELECT);
         dropdownDataList.type(DROPDOWN_DATALIST);
+        fileInput.setInputFiles(Paths.get(FILE_INPUT));
         checkedCheckboxUntick.click();
         defaultCheckbox.click();
         defaultRadio.click();
-        fileInput.setInputFiles(Paths.get(FILE_INPUT));
         colorPicker.fill(COLOR_PICKER);
         datePicker.fill(DATE_PICKER_TEXT_ENTRY); // first flow exercised - user enters date as text
         page.locator("td.day").getByText(DATE_PICKER_PICKER_ENTRY).click(); // second flow: in addition asserts the date picker clicking works
@@ -97,12 +103,17 @@ public class RnWebForm {
         rangeSlider.press("ArrowLeft");
         rangeSlider.press("ArrowLeft");
         rangeSlider.press("ArrowLeft");
+        submit_button.click();
+        System.out.println("Form submitted successfully!");
 
+        //RESULTS PAGE
+        assertThat(resultHeading).hasText(RESULTS_PAGE_HEADING);
+        System.out.println("Results heading assertion passed!");
+        assertThat(resultMessage).hasText(RESULTS_PAGE_MESSAGE);
+        System.out.println("Results message assertion passed!");
 
+        //need to close it
 
-
-//        submit_button.click();
-//        System.out.println("Form submitted successfully!");
 //
 //        List<Locator> rows = page.locator("tr").all();
 //        System.out.println("Form submitted successfully!");
