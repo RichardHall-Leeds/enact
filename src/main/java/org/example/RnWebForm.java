@@ -13,6 +13,8 @@ public class RnWebForm {
         Page page = context.newPage();
         page.navigate("https://www.selenium.dev/selenium/web/web-form.html");
 
+        // tools
+        //page.pause();
 
         // inputs
         final String TEXT_INPUT = "You're really growing on me, (Or am I growing on you)";
@@ -23,12 +25,19 @@ public class RnWebForm {
                 "Norwich",
                 "NW1 1AA"
         );
-
         // disabled input
         // readonly input
-        // RETURN_TO_INDEX
 
         final String DROPDOWN_SELECT = "Three";
+        final String DROPDOWN_DATALIST = "San Francisco";
+        final String COLOR_PICKER = "#ff0000";
+        final String DATE_PICKER = "05/01/2026";
+
+        // file input
+
+
+
+
         // file input
         // x 4 checkbox and radio
 
@@ -38,19 +47,47 @@ public class RnWebForm {
         Locator textArea = page.locator("textarea[name='my-textarea']");
         Locator disabledInput = page.locator("input[name='my-disabled']");
         Locator readonlyInput = page.locator("input[name='my-readonly']");
-        Locator returnToIndex = page.locator();
+        Locator returnToIndex = page.getByText("Return to index");
+        Locator dropdownSelect = page.locator("select[name='my-select']");
+        Locator dropdownDataList = page.locator("input[placeholder='Type to search...']");  // i would like assert the label that displays when its populated
+        Locator checkedCheckboxUntick = page.getByLabel("Checked checkbox");
+        Locator defaultCheckbox = page.getByLabel("Default checkbox");
+        Locator defaultRadio = page.getByLabel("Default radio");
+        Locator colorPicker = page.getByLabel("Color picker");
+        Locator datePicker = page.getByLabel("Date picker");  // ask co-pilot if getbylable stronger than page.locator?  also john said use different ways
 
- //        // actions on page
+        // actions on page
         textInput.fill(TEXT_INPUT);
         password.fill(PASSWORD);
-        page.pause();
         textArea.click();
         for (String line : TEXTAREA) {
             textArea.type(line);
             textArea.press("Enter");
         }
-        //disabledInput - what to do here
-        //readonlyInput - wht to do here
+
+//        // return to index - needs junit
+//        // returnToIndex.click();
+//
+//        //copilot code
+//        Page newPage = page.waitForPopup(() -> {
+//            returnToIndex.click(
+//                    new Locator.ClickOptions().setModifiers(Arrays.asList("Control"));
+//            );
+//        });
+//
+//        newPage.waitForLoadState();
+//        System.out.println("New page URL: " + newPage.url());
+
+        dropdownSelect.selectOption(DROPDOWN_SELECT);
+        dropdownDataList.type(DROPDOWN_DATALIST);
+        checkedCheckboxUntick.click();
+        defaultCheckbox.click();
+        defaultRadio.click();
+        colorPicker.fill(COLOR_PICKER);
+        datePicker.fill(DATE_PICKER);
+
+        //disabledInput - need an assertion here
+        //readonlyInput - need an assertion here
 
 //        lastName.fill(LASTNAME);
 //        email.fill(EMAIL);

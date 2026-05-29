@@ -68,11 +68,7 @@ public class DemoQaForm {
 
             //pictures code to go here
 
-            currentAddress.click();
-            for (String line : ADDRESSLINES) {
-                currentAddress.type(line);
-                currentAddress.press("Enter"); // moves to next line
-            }
+
 
             // state and city code to go here
 
