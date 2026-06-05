@@ -30,16 +30,17 @@ public class RnWebForm {
         );
         // disabled input
         // readonly input
-
         final String DROPDOWN_SELECT = "Three";
         final String DROPDOWN_DATALIST = "San Francisco";
-        final String COLOR_PICKER = "#ff0000";
-        final String FILE_INPUT = "src/main/resources/Test_Document.txt";  // need to create this file for the test to work - also need to check how this works on different OS's - is there a way to make it dynamic?
+        final String FILE_INPUT = "src/main/resources/Test_Document.txt";
+        //checkbox and radio buttons - just clicking them to change state - no text input
+        final String COLOR_PICKER = "#0000ff";
         final String DATE_PICKER_TEXT_ENTRY = "05/01/1999";
         final String DATE_PICKER_PICKER_ENTRY = "15";
+
+        // result page strings
         final String RESULTS_PAGE_HEADING = "Form submitted";
         final String RESULTS_PAGE_MESSAGE = "Received!";
-
 
         // locators
         Locator textInput = page.locator("#my-text-id");
@@ -103,6 +104,7 @@ public class RnWebForm {
         rangeSlider.press("ArrowLeft");
         rangeSlider.press("ArrowLeft");
         rangeSlider.press("ArrowLeft");
+        rangeSlider.press("ArrowLeft");
         submit_button.click();
         System.out.println("Form submitted successfully!");
 
@@ -126,7 +128,7 @@ public class RnWebForm {
         // 3. THEN GO AND DO RNWEBFORM
         // 4. LOOK UP ON NET.  PLAYWRIGHT DOCS FIRST AND THEN STACKOVERFLOW ETC.
         // 5. get junit installed in repo
-        // DO THE REPO PUSH TO GITHUB PERSONAL ACCOUNT - SIMULATE DOING A TEST AND SUBMITTING TO A FIRM
+        // DO THE REPO PUSH TO GITHUB PERSONAL ACCOUNT - SIMULATE DOING A TEST AND SUBMITTING TO A FIRM  - done
 
     }
 

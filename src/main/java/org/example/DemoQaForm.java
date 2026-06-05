@@ -1,6 +1,7 @@
 package org.example;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.AriaRole;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class DemoQaForm {
             final String FIRSTNAME = "Richard";
             final String LASTNAME = "Hall";
             final String EMAIL = "richard@email.com";
-            String GENDER = page.locator("label[for='gender-radio-3']").textContent(); // dynamic to get label from the page
+            String GENDER = page.locator("label[for='gender-radio-3']").textContent(); // obtaing
             final String MOBILENUMBER = "1234567890";
             final String DATEOFBIRTH = "11 May 1901";
             final String SUBJECT1 = "Social Studies"; // many more options here - full test could check all.
@@ -47,7 +48,9 @@ public class DemoQaForm {
             Locator hobbies1 = page.locator("label:has-text('" + HOBBY1 + "')");
             Locator hobbies2 = page.locator("label:has-text('" + HOBBY2 + "')");
             Locator currentAddress = page.getByPlaceholder("Current Address");
-            Locator submit_button = page.locator("#submit");
+            Locator submit_button = page.getByRole(AriaRole.BUTTON,
+                            new Page.GetByRoleOptions().setName("Submit"));
+
 
             // actions to perform on the page
             firstName.fill(FIRSTNAME);
@@ -67,8 +70,11 @@ public class DemoQaForm {
             hobbies2.click();
 
             //pictures code to go here
-
-
+            currentAddress.click();
+            for (String line : ADDRESSLINES) {
+                currentAddress.type(line);
+                currentAddress.press("Enter");
+            }
 
             // state and city code to go here
 
