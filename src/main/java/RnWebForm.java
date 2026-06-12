@@ -1,5 +1,3 @@
-package org.example;
-
 import com.microsoft.playwright.*;
 
 import java.nio.file.Paths;
