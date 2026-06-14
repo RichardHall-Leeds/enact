@@ -30,6 +30,8 @@
     <input id="female" name="gender" type="radio"/>
     <label for="other">Other</label>
     <input id="other" name="gender" type="radio"/>
+    <label for="pererNotToSay">Prefer Not to Say</label>
+    <input id="pererNotToSay" name="gender" type="radio"/>
     <p/>
     <label for="mobileNumber">Mobile Number</label>
     <input id="mobileNumber" maxlength="10" minlength="10" pattern="\d" type="text"/>
@@ -40,7 +42,8 @@
     <hr>
     <p/>
     <label for="skills">Testing Skills</label>
-    <input id="skills" list="values" role="combobox" type="text"/>
+    <input id="skills" list="values" role="combobox" type="text"
+           placeholder="Type and pick a skill"/>
     <datalist id="values">
         <option value="Playwright">
         <option value="Allure">
@@ -48,12 +51,67 @@
         <option value="Test Planning">
         <option value="Java">
         <option value="JavaScript">
-        <option value="Jnit">
+        <option value="JUnit">
         <option value="Jenkins">
         <option value="Jira">
         <option value="Selenium">
         <option value="Reporting">
     </datalist>
+    <div id="selected-skills" style="margin-top:8px;"></div>
+    <input type="hidden" id="skills-value" name="skills"/>
+    <style>
+        .chip {
+            display: inline-block;
+            padding: 2px 8px;
+            margin: 2px;
+            background: #e0e7ff;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+        .chip button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            margin-left: 4px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        (function () {
+            const input    = document.getElementById('skills');
+            const list     = document.getElementById('values');
+            const display  = document.getElementById('selected-skills');
+            const hidden   = document.getElementById('skills-value');
+            const selected = new Set();
+
+            function render() {
+                display.innerHTML = '';
+                selected.forEach(function (skill) {
+                    const chip = document.createElement('span');
+                    chip.className = 'chip';
+                    chip.textContent = skill;
+                    const x = document.createElement('button');
+                    x.type = 'button';
+                    x.textContent = '\u00d7';
+                    x.onclick = function () { selected.delete(skill); render(); };
+                    chip.appendChild(x);
+                    display.appendChild(chip);
+                });
+                hidden.value = Array.from(selected).join(',');
+            }
+
+            input.addEventListener('input', function () {
+                const match = Array.from(list.options).find(function (o) {
+                    return o.value === input.value;
+                });
+                if (match && !selected.has(match.value)) {
+                    selected.add(match.value);
+                    input.value = '';
+                    render();
+                }
+            });
+        })();
+    </script>
     <p>Please upload your CV</p>
     <input for="cvUpload" id="cvUpload" label name="cvUpload" type="file"/>
     <label for="cvUpload"></label>
