@@ -23,7 +23,6 @@ public class AriaLocal {
             page.navigate(url);
 
             // --- Test data: Inputs ---
-
             final String FIRSTNAME = "Richard";
             final String LASTNAME = "Hall";
             final String EMAIL_ADDRESS = "richard@ukorg.com";
@@ -67,7 +66,6 @@ public class AriaLocal {
 
 
             // --- Locators and interactions ---
-
             Locator firstName = page.getByRole(AriaRole.TEXTBOX,
                     new Page.GetByRoleOptions().setName(FIRST_NAME_LABEL).setExact(true));
             firstName.fill(FIRSTNAME);
