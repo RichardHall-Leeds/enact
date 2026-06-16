@@ -5,51 +5,41 @@ import com.microsoft.playwright.options.SelectOption;
 import java.nio.file.Paths;
 import java.util.List;
 
-// co-pilot session id 5c2cd444-bbab-45d3-976a-2aba8e532cd0 28/05
-// new session c8/06 1a0d3ead-3b07-4824-9c66-9b9f844e7eb0
-
-/*
-*Test plan*
-1 load local html file
-* 2. fill all elements - most important as per John brief.  use role/label prorities.  try and use all the items described in your training.*
-if too difficult to amend rh html we can use demoform
-3. check non interactive elemets display correctly - this is checkin the ui is working well.
- */
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class AriaLocal {
 
     public static void main(String[] args) {
 
-      final String HTML_BASE = "//src//main//java//aria.html";
+      final String HTML_BASE = "//src//main//resources//html//aria.html";
         String path = System.getProperty("user.dir");
         String url = "file://" + path + HTML_BASE;
 
-        try {
-            Playwright playwright = Playwright.create();
-            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-            BrowserContext context = browser.newContext();
+        try (Playwright playwright = Playwright.create();
+             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+             BrowserContext context = browser.newContext()) {
 
             Page page = context.newPage();
             page.navigate(url);
 
-            // Inputs
-            // Test data submitted for the tests (user input value)
+            // --- Test data: Inputs ---
+
+            final String FIRSTNAME = "Richard";
             final String LASTNAME = "Hall";
             final String EMAIL_ADDRESS = "richard@ukorg.com";
-            final String GENDER = "Male"; // deliberately using lower case to test the label matching
+            final String GENDER = "Male";
             final String MOBILENUMBER = "1234567890";
             final String DATEOFBIRTH = "1901-03-01";
             final String TESTINGSKILLS1 = "Java";
             final String TESTINGSKILLS2 = "JavaScript"; // deliberately using upper case to test the label matching
             final String TESTINGSKILLS3 = "Allure";
             final String TESTINGSKILLS4 = "Playwright";
-            final String TESTINGSKILLS5 = "Test Planning"; // deliberate error
+            final String TESTINGSKILLS5 = "Test Planning";
             List<String> TESTINGSKILLS = List.of(TESTINGSKILLS1, TESTINGSKILLS2, TESTINGSKILLS3, TESTINGSKILLS4, TESTINGSKILLS5);
             final String CV_FILE_INPUT = "src/main/resources/Test_Document.txt";
-            final String WORKING_LOCATION_PREFERNCE1 = "Hyrbid Working";
-            final String WORKING_LOCATION_PREFERNCE2 = "Fully Remote/Home Working";
-            List<String> WORKING_LOCATION_PREFERENCES = List.of(WORKING_LOCATION_PREFERNCE1, WORKING_LOCATION_PREFERNCE2);
-            // didn't do list here to be different
+            final String WORKING_LOCATION_PREFERENCE1 = "Hyrbid Working";
+            final String WORKING_LOCATION_PREFERENCE2 = "Fully Remote/Home Working";
+            List<String> WORKING_LOCATION_PREFERENCES = List.of(WORKING_LOCATION_PREFERENCE1, WORKING_LOCATION_PREFERENCE2);
             List<String> POSTALADDRESS = List.of(
                     "123 Example Street",
                     "Flat 4B",
@@ -58,7 +48,7 @@ public class AriaLocal {
             );
             final String COUNTRY = "Northern Ireland";
 
-            //  UI Labels (on page)
+            //  --- Test data: UI Labels (on as seen page by user) ---
             final String FIRST_NAME_LABEL = "First Name";
             final String LAST_NAME_LABEL = "Last Name";
             final String EMAIL_ADDRESS_LABEL = "Email address";
@@ -73,9 +63,10 @@ public class AriaLocal {
             final String CV_UPLOAD_LABEL = "Please upload your CV";
             final String COUNTRY_LABEL = "Country Where you Live";
             final String POSTAL_ADDRESS_LABEL = "Current Postal Address";
-            // More to do - first focus is on interaction
+            final String SUBMIT_BUTTON_LABEL = "Submit";
 
-            // Locators
+
+            // --- Locators and interactions ---
 
             Locator firstName = page.getByRole(AriaRole.TEXTBOX,
                     new Page.GetByRoleOptions().setName(FIRST_NAME_LABEL).setExact(true));
@@ -115,8 +106,6 @@ public class AriaLocal {
                         new Page.GetByRoleOptions().setName(preference).setExact(true)).check();
             }
 
-
-
             Locator country = page.getByRole(AriaRole.COMBOBOX,
                     new Page.GetByRoleOptions().setName(COUNTRY_LABEL).setExact(true));
             country.selectOption(new SelectOption().setLabel(COUNTRY));
@@ -127,11 +116,41 @@ public class AriaLocal {
                   postalAddress.pressSequentially(line);
                   postalAddress.press("Enter");
             }
-            // Assertions
-            //use get by role but use a textarea or 0-3 min test
-            //assertThat(page.locator("#country"))
-              //    .hasText(COUNTRY);
 
+            page.getByRole(AriaRole.BUTTON,
+                    new Page.GetByRoleOptions().setName(SUBMIT_BUTTON_LABEL).setExact(true)).click();
+
+            // --- Assertions ---
+            // Test data: Expected values to be asserted against on the Confirmation page
+            final String EXPECTED_HEADING = "Your submission is successful - thank you.";
+            final String EXPECTED_REFERENCE = "QA-2026-000123";
+            final String EXPECTED_STATUS = "Pending review";
+            final String EXPECTED_RESOURCE_LINK = "Playwright Best Practices";
+            final String EXPECTED_RESOURCE_URL = "https://playwright.dev/java/docs/best-practices";
+            final String SELECTOR_REFERENCE_FIELD = "[data-field='reference']";
+            final String SELECTOR_STATUS_FIELD = "[data-field='status']";
+            final String SELECTOR_RESOURCE_ITEMS = "#resourceList li";
+
+            // Expected resource counts
+            final int EXPECTED_RESOURCE_COUNT = 4;
+
+            // --- Actual Assertions ---
+            assertThat(page.getByRole(AriaRole.HEADING,
+                    new Page.GetByRoleOptions().setName(EXPECTED_HEADING)))
+                    .isVisible();
+
+            assertThat(page.locator(SELECTOR_REFERENCE_FIELD))
+                    .hasText(EXPECTED_REFERENCE);
+
+            assertThat(page.locator(SELECTOR_RESOURCE_ITEMS))
+                    .hasCount(EXPECTED_RESOURCE_COUNT);
+
+            assertThat(page.getByRole(AriaRole.LINK,
+                    new Page.GetByRoleOptions().setName(EXPECTED_RESOURCE_LINK)))
+                    .hasAttribute("href", EXPECTED_RESOURCE_URL);
+
+            assertThat(page.locator(SELECTOR_STATUS_FIELD))
+                    .hasText(EXPECTED_STATUS);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,8 +159,4 @@ public class AriaLocal {
 }
 
 
-//declare a disabled field and check its disabled
-// run through the getbylabel, get by row - look at official playwrite documentation for java o
 
-// look up dtos and take it with you.
-// create a directory called dto - a measn of carrying information between a feature and a step file

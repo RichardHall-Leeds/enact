@@ -1,4 +1,4 @@
-public class MyStepdefs {
+/*public class MyStepdefs {
     public MyStepdefs() {
         Given("^I open a browser$", () -> {
             // Write code here that turns the phrase above into concrete actions
@@ -13,4 +13,4 @@ public class MyStepdefs {
             throw new io.cucumber.java.PendingException();
         });
     }
-}
+}*/
