@@ -1,0 +1,31 @@
+package steps;
+
+import dto.DTOMap;
+import dto.Home;
+import io.cucumber.java.DataTableType;
+import io.cucumber.java.PendingException;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+
+import java.util.List;
+import java.util.Map;
+
+public class Quote {
+
+    po.Quote quote  = new po.Quote();
+
+    @DataTableType
+    public dto.Home decodeEnactForm(Map<String, String> row) {
+        return dto.Home.decode(new DTOMap(row));
+    }
+    @Then("I check the Your Quote screen has the following values")
+    ///  HERE LETS CHECK IT OUT.
+    public void iCheckTheYourQuoteScreenHasTheFollowingValues(List<Quote> formList) {
+        home.completeForm(formList.get(0));
+    }
+
+    @And("I check these business important elements are displayed")
+    public void iCheckTheseBusinessImportantElementsAreDisplayed() {
+
+    }
+}

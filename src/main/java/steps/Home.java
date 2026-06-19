@@ -16,6 +16,7 @@ public class Home {
     public dto.Home decodeEnactForm(Map<String, String> row) {
         return dto.Home.decode(new DTOMap(row));
     }
+
     @And("I accept cookies")
     public void acceptCookies() {
             home.acceptCookies();

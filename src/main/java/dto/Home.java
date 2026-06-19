@@ -1,12 +1,11 @@
 package dto;
 
-//import dto.DTOMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+// check with john what these were
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
