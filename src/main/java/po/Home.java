@@ -5,7 +5,8 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 
 public class Home extends Common {
-    public void acceptCookies() {
+
+      public void acceptCookies() {
         Locator cookiesAcceptAllButton;
 
         cookiesAcceptAllButton = page.getByRole(AriaRole.BUTTON,
