@@ -9,7 +9,7 @@ public class Home extends Common {
     // Placeholders
     final String COOKIE_ACCEPT = "Accept All";
     final String PURCHASE_PRICE = "Purchase Price *";
-    // declare variable for first time buyer y/n if time
+    final String FIRST_TIME_BUYER = "Are you a first time buyer?";
     final String NAME = "Name *";
     final String EMAIL = "Email *";
     final String PHONE = "Phone *";
@@ -38,6 +38,12 @@ public class Home extends Common {
         Locator purchaseStage = page.locator(PURCHASE_STAGE);
         purchaseStage.selectOption(content.getPurchaseStage());
 
+        Locator firstTimeBuyer = page.getByRole(AriaRole.CHECKBOX,
+                new Page.GetByRoleOptions().setName(FIRST_TIME_BUYER).setExact(true));
+                    if(content.getFirstTimeBuyer().equals("Yes")) {
+                    firstTimeBuyer.check();
+        }
+
         Locator name = page.getByPlaceholder(NAME);
         name.fill(content.getName());
 
@@ -50,6 +56,7 @@ public class Home extends Common {
         Locator postcode = page.getByPlaceholder(POSTCODE);
         postcode.fill(content.getPostcode());
 
+        // consent same variable name as in home.java and feature - is it ok?
         Locator consent = page.locator(CONSENT);
         if(content.getConsent().equals("N")) {
             consent.uncheck();

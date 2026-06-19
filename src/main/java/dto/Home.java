@@ -15,6 +15,7 @@ public class Home {
 
     private String purchasePrice;
     private String purchaseStage;
+    private String firstTimeBuyer;
     private String name;
     private String email;
     private String phone;
@@ -25,6 +26,7 @@ public class Home {
         return new Home(
                 row.get("purchasePrice"),
                 row.get("purchaseStage"),
+                row.get("firstTimeBuyer"),
                 row.get("name"),
                 row.get("email"),
                 row.get("phone"),
