@@ -9,13 +9,17 @@ Feature: Home page interactions
     And I accept cookies
     When I complete the following fields
     #consider submit button being seperate step or added as text
-      | purchasePrice | purchaseStage  | firstTimeBuyer | name             | emailthrow new PendingException() | phone        | postcode | consent |
-      | 200000.00     | Offer accepted | Yes            | Test User Ignore | test@testemail.co.uk              | 07824 441111 | SW1A 2AA | No      |
+      | purchasePrice | purchaseStage  | firstTimeBuyer | name             | email                | phone        | postcode | consent |
+      | 200000.00     | Offer accepted | Yes            | Test User Ignore | test@testemail.co.uk | 07824 441111 | SW1A 2AA | No      |
 
-    Then I check the Your Quote screen has the following values
-    #ok purchasePrice is same in home.java?
-    | purchasePrice | tenure   | totalConveyancingFee | totalFeeAndSearchPack | estimatedTotal |
-    | 200000        | Freehold | £1,068.00            | £1,471.20             | £1,770.20      |
+    Then I verify the Your Quote screen has the following values
+    | purchasePriceQuote |
+    | £200,000           |
+
+    #| purchasePriceQuote | tenure   | totalConveyancingFee | totalFeeAndSearchPack | estimatedTotal |
+    #| 200000              | Freehold | £1,068.00            | £1,471.20             | £1,770.20      |
+
+
     #And I check these business important elements are displayed
      # | elementName                                   |
       #| Heading saying team will call the user        |

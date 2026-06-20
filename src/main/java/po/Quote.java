@@ -4,53 +4,36 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 
+import java.util.List;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class Quote extends Common {
 
-    // TO CHECK can we use the same identifiers as in home.java or do we need to create new ones?
-    // UI Identifiers
-
-    // Quote Summary table tr definitions
-    final int PURCHASE_PRICE = 0;
-    final int TENURE = 1;
-    final int QUOTE_NUMBER = 2;
+    // User-facing row labels (these are what a user sees in the left column)
+    // to do: tie other files lables up with this - ensure a match┃
+    final String PURCHASE_PRICE = "Purchase Price";
+    final String TENURE         = "Tenure";
+    final String QUOTE_NUMBER   = "Quote Number";
 
     // HTML Identifiers
-    final String PURCHASE_STAGE = "#purchaseDropdown";
-    final String CONSENT ="#MKTConsent";
 
-    public void completeForm(steps.Quote content) {
-        Locator purchasePrice = page.getByPlaceholder(PURCHASE_PRICE);
-        purchasePrice.fill(content.getPurchasePrice());
+    public void verifyForm(dto.Quote content) {
 
-        Locator purchaseStage = page.locator(PURCHASE_STAGE);
-        purchaseStage.selectOption(content.getPurchaseStage());
+        Locator purchasePriceRow = page.getByRole(AriaRole.ROW,
+        new Page.GetByRoleOptions().setName(PURCHASE_PRICE));
+        assertThat(purchasePriceRow).containsText(content.getPurchasePriceQuote());
 
-        Locator firstTimeBuyer = page.getByRole(AriaRole.CHECKBOX,
-                new Page.GetByRoleOptions().setName(FIRST_TIME_BUYER).setExact(true));
-                    if(content.getFirstTimeBuyer().equals("Yes")) {
-                    firstTimeBuyer.check();
-        }
+        Locator tenureRow = page.getByRole(AriaRole.ROW,
+        new Page.GetByRoleOptions().setName(TENURE));
+        assertThat(tenureRow).containsText(content.getTenure());
 
-        Locator name = page.getByPlaceholder(NAME);
-        name.fill(content.getName());
-
-        Locator email = page.getByPlaceholder(EMAIL);
-        email.fill(content.getEmail());
-
-        Locator phone = page.getByPlaceholder(PHONE);
-        phone.fill(content.getPhone());
-
-        Locator postcode = page.getByPlaceholder(POSTCODE);
-        postcode.fill(content.getPostcode());
-
-        // consent same variable name as in home.java and feature - is it ok?
-        Locator consent = page.locator(CONSENT);
-        if(content.getConsent().equals("No")) {
-            consent.uncheck();
-        }
-
-        Locator getQuoteSubmit = page.getByRole(AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName(GET_QUOTE_BUTTON).setExact(true));
-        getQuoteSubmit.click();
+//        Locator quoteNumberRow = page.getByRole(AriaRole.ROW,
+//        new Page.GetByRoleOptions().setName(QUOTE_NUMBER));
+//        assertThat(quoteNumberRow).containsText(content.getQuoteNumber());
     }
+
+
+
 }

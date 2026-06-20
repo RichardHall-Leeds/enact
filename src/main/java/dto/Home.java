@@ -23,9 +23,6 @@ public class Home {
     private String postcode;
     private String consent;
 
-    public Home(String purchasePrice, String purchaseStage, String firstTimeBuyer, String name, String email, String phone, String postcode, String consent) {
-    }
-
     public static Home decode(DTOMap row) {
         return new Home(
                 row.get("purchasePrice"),

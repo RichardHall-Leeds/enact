@@ -18,10 +18,10 @@ public class Quote {
     public dto.Quote decodeEnactForm(Map<String, String> row) {
         return dto.Quote.decode(new DTOMap(row));
     }
-    @Then("I check the Your Quote screen has the following values")
-    ///  HERE LETS CHECK IT OUT.
-    public void iCheckTheYourQuoteScreenHasTheFollowingValues(List<Quote> formList) {
-        quote.completeForm(formList.get(0));
+
+    @Then("I verify the Your Quote screen has the following values")
+    public void iVerifyTheYourQuoteScreenHasTheFollowingValues(List<dto.Quote> formList) {
+        quote.verifyForm(formList.get(0));
     }
 
     @And("I check these business important elements are displayed")
