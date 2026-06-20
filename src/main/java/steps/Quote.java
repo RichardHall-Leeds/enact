@@ -28,4 +28,10 @@ public class Quote {
     public void iCheckTheseBusinessImportantElementsAreDisplayed() {
 
     }
+
+    @And("I verify the Quote Number is displayed and is {int} digits long")
+    public void iVerifyTheQuoteNumberIsDisplayedAndIsDigitsLong(int digits) {
+        quote.verifyQuoteNumber(digits);
+    }
+
 }

@@ -16,7 +16,7 @@ public class Home extends Common {
     final String POSTCODE = "Postcode *";
     final String GET_QUOTE_BUTTON = "Get Quote";
 
-    // HTML Identifiers
+    // HTML ID Identifiers
     final String PURCHASE_STAGE = "#purchaseDropdown";
     final String CONSENT ="#MKTConsent";
 

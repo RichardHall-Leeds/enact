@@ -5,7 +5,7 @@ Feature: Home page interactions
     And I navigate to https://www.enact.co.uk/
 
 # experiement without given when then?  everyone hates it.
-  Scenario: Purchase Price quote Home Page form submission
+  Scenario: Purchase Price quote Home Page form submissioncan you
     And I accept cookies
     When I complete the following fields
     #consider submit button being seperate step or added as text
@@ -13,11 +13,9 @@ Feature: Home page interactions
       | 200000.00     | Offer accepted | Yes            | Test User Ignore | test@testemail.co.uk | 07824 441111 | SW1A 2AA | No      |
 
     Then I verify the Your Quote screen has the following values
-    | purchasePriceQuote |
-    | £200,000           |
-
-    #| purchasePriceQuote | tenure   | totalConveyancingFee | totalFeeAndSearchPack | estimatedTotal |
-    #| 200000              | Freehold | £1,068.00            | £1,471.20             | £1,770.20      |
+      | purchasePriceQuote | tenure   | totalConveyancingFee | totalFeeAndSearchPack | estimatedTotal |
+      | £200,000           | Freehold | £1,068.00            | £1,471.20             | £1,770.20      |
+    And I verify the Quote Number is displayed and is 7 digits long
 
 
     #And I check these business important elements are displayed
