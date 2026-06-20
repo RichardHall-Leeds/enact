@@ -12,6 +12,7 @@ public class Home {
 
     po.Home home = new po.Home();
 
+    // TO CHECK:
     @DataTableType
     public dto.Home decodeEnactForm(Map<String, String> row) {
         return dto.Home.decode(new DTOMap(row));

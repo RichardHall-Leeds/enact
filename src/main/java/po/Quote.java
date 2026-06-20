@@ -6,32 +6,19 @@ import com.microsoft.playwright.options.AriaRole;
 
 public class Quote extends Common {
 
-    // Placeholders
-    final String COOKIE_ACCEPT = "Accept All";
-    final String PURCHASE_PRICE = "Purchase Price *";
-    final String FIRST_TIME_BUYER = "Are you a first time buyer?";
-    final String NAME = "Name *";
-    final String EMAIL = "Email *";
-    final String PHONE = "Phone *";
-    final String POSTCODE = "Postcode *";
-    final String GET_QUOTE_BUTTON = "Get Quote";
+    // TO CHECK can we use the same identifiers as in home.java or do we need to create new ones?
+    // UI Identifiers
 
-    // Ids
+    // Quote Summary table tr definitions
+    final int PURCHASE_PRICE = 0;
+    final int TENURE = 1;
+    final int QUOTE_NUMBER = 2;
+
+    // HTML Identifiers
     final String PURCHASE_STAGE = "#purchaseDropdown";
     final String CONSENT ="#MKTConsent";
 
-
-
-
-    public void acceptCookies() {
-        Locator cookiesAcceptAllButton;
-
-        cookiesAcceptAllButton = page.getByRole(AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName(COOKIE_ACCEPT).setExact(true));
-        cookiesAcceptAllButton.click();
-    }
-
-    public void completeForm(dto.Home content) {
+    public void completeForm(steps.Quote content) {
         Locator purchasePrice = page.getByPlaceholder(PURCHASE_PRICE);
         purchasePrice.fill(content.getPurchasePrice());
 

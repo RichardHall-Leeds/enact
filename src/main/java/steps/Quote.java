@@ -15,13 +15,13 @@ public class Quote {
     po.Quote quote  = new po.Quote();
 
     @DataTableType
-    public dto.Home decodeEnactForm(Map<String, String> row) {
-        return dto.Home.decode(new DTOMap(row));
+    public dto.Quote decodeEnactForm(Map<String, String> row) {
+        return dto.Quote.decode(new DTOMap(row));
     }
     @Then("I check the Your Quote screen has the following values")
     ///  HERE LETS CHECK IT OUT.
     public void iCheckTheYourQuoteScreenHasTheFollowingValues(List<Quote> formList) {
-        home.completeForm(formList.get(0));
+        quote.completeForm(formList.get(0));
     }
 
     @And("I check these business important elements are displayed")

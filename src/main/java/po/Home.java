@@ -6,7 +6,7 @@ import com.microsoft.playwright.options.AriaRole;
 
 public class Home extends Common {
 
-    // Placeholders
+    // UI Identifiers
     final String COOKIE_ACCEPT = "Accept All";
     final String PURCHASE_PRICE = "Purchase Price *";
     final String FIRST_TIME_BUYER = "Are you a first time buyer?";
@@ -16,7 +16,7 @@ public class Home extends Common {
     final String POSTCODE = "Postcode *";
     final String GET_QUOTE_BUTTON = "Get Quote";
 
-    // Ids
+    // HTML Identifiers
     final String PURCHASE_STAGE = "#purchaseDropdown";
     final String CONSENT ="#MKTConsent";
 
@@ -62,8 +62,8 @@ public class Home extends Common {
             consent.uncheck();
         }
 
-        Locator getQuoteSubmit = page.getByRole(AriaRole.BUTTON,
+        Locator getQuote_button = page.getByRole(AriaRole.BUTTON,
                 new Page.GetByRoleOptions().setName(GET_QUOTE_BUTTON).setExact(true));
-        getQuoteSubmit.click();
+        getQuote_button.click();
     }
 }

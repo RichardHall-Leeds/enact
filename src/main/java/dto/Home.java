@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// check with john what these were
+// TO CHECK  with john what these were
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+
 public class Home {
 
     private String purchasePrice;
@@ -20,6 +22,9 @@ public class Home {
     private String phone;
     private String postcode;
     private String consent;
+
+    public Home(String purchasePrice, String purchaseStage, String firstTimeBuyer, String name, String email, String phone, String postcode, String consent) {
+    }
 
     public static Home decode(DTOMap row) {
         return new Home(
