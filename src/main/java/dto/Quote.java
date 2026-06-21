@@ -13,7 +13,7 @@ public class Quote {
 
     private String purchasePriceQuote;
     private String tenure;
-    private String totalConveyancingFee;
+    private String totalConveyancingFees;
     private String totalFeeAndSearchPack;
     private String estimatedTotal;
 
