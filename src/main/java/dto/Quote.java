@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class Quote {
 
-    private String purchasePriceQuote;
+    private String purchasePrice;
     private String tenure;
     private String totalConveyancingFees;
     private String totalFeeAndSearchPack;
@@ -20,9 +20,9 @@ public class Quote {
 
     public static Quote decode(DTOMap row) {
         return new Quote(
-                row.get("purchasePriceQuote"),
+                row.get("purchasePrice"),
                 row.get("tenure"),
-                row.get("totalConveyancingFee"),
+                row.get("totalConveyancingFees"),
                 row.get("totalFeeAndSearchPack"),
                 row.get("estimatedTotal"));
     }

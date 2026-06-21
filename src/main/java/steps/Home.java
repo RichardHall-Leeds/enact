@@ -2,6 +2,7 @@ package steps;
 
 import dto.DTOMap;
 import io.cucumber.java.DataTableType;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -23,9 +24,9 @@ public class Home {
             home.acceptCookies();
         }
 
-    @When("I complete the following fields")
-    public void iCompleteTheFollowingFields(List<dto.Home> formList) {
-         home.completeForm(formList.get(0));
+    @When("I request an Instant Quote submitting the following details:")
+    public void requestInstantQuote(List<dto.Home> formList) {
+        home.requestInstantQuote(formList.get(0));
 
     }
 }

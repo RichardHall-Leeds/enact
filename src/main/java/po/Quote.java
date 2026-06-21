@@ -13,21 +13,22 @@ public class Quote extends Common {
 
     // User-facing row labels (these are what a user sees in the left column)
     // to do: tie other files lables up with this - ensure a match
-    final String TENURE = "Tenure";
+    private static final String TENURE = "Tenure";
+    private static final String INSTRUCT_NOW = "Instruct Now";
 
-    // HTML ID Identifiers
-    final String PURCHASE_PRICE = "[data-enact-result-field='PurchasePrice']";
-    final String TOTAL_CONVEYANCE_FEE = "[data-enact-result-field='TotalFeeIncVAT']";
-    final String TOTAL_FEE_AND_SEARCH_PACK = "[data-enact-result-field='TotalFeeAndSearchPackIncVAT']";
-    final String ESTIMATED_TOTAL = "[data-enact-contains-result-field='Purchase-EstimatedTotalIncVAT'] [data-enact-result-field='EstimatedTotalIncVAT']"; ;
-    final String QUOTE_NUMBER = "[data-enact-result-field='QuoteID']";
+    // HTML Identifiers
+    private static final String PURCHASE_PRICE = "[data-enact-result-field='PurchasePrice']";
+    private static final String TOTAL_CONVEYANCE_FEE = "[data-enact-result-field='TotalFeeIncVAT']";
+    private static final String TOTAL_FEE_AND_SEARCH_PACK = "[data-enact-result-field='TotalFeeAndSearchPackIncVAT']";
+    private static final String ESTIMATED_TOTAL = "[data-enact-contains-result-field='Purchase-EstimatedTotalIncVAT'] [data-enact-result-field='EstimatedTotalIncVAT']"; ;
+    private static final String QUOTE_NUMBER = "[data-enact-result-field='QuoteID']";
 
     public void verifyQuoteSummary(dto.Quote content) {
         Locator purchasePriceRow =  page.locator(PURCHASE_PRICE);
-        assertThat(purchasePriceRow).hasText(content.getPurchasePriceQuote());
+        assertThat(purchasePriceRow).hasText(content.getPurchasePrice());
 
         Locator tenureRow = page.getByRole(AriaRole.ROW,
-        new Page.GetByRoleOptions().setName(TENURE));
+            new Page.GetByRoleOptions().setName(TENURE));
         assertThat(tenureRow).containsText(content.getTenure());
 
     }
@@ -50,5 +51,10 @@ public class Quote extends Common {
                 Pattern.compile("^\\d{" + digits + "}$"));
     }
 
+    public void verifyInstructNowShows() {
+        Locator instructNow = page.getByRole(AriaRole.LINK,
+            new Page.GetByRoleOptions().setName(INSTRUCT_NOW).setExact(true));
+        assertThat(instructNow).isVisible();
+    }
 
 }

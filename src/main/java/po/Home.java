@@ -7,31 +7,26 @@ import com.microsoft.playwright.options.AriaRole;
 public class Home extends Common {
 
     // UI Identifiers
-    final String COOKIE_ACCEPT = "Accept All";
-    final String PURCHASE_PRICE = "Purchase Price *";
-    final String FIRST_TIME_BUYER = "Are you a first time buyer?";
-    final String NAME = "Name *";
-    final String EMAIL = "Email *";
-    final String PHONE = "Phone *";
-    final String POSTCODE = "Postcode *";
-    final String GET_QUOTE_BUTTON = "Get Quote";
+    private static final String COOKIE_ACCEPT = "Accept All";
+    private static final String PURCHASE_PRICE = "Purchase Price *";
+    private static final String FIRST_TIME_BUYER = "Are you a first time buyer?";
+    private static final String NAME = "Name *";
+    private static final String EMAIL = "Email *";
+    private static final String PHONE = "Phone *";
+    private static final String POSTCODE = "Postcode *";
+    private static final String GET_QUOTE_BUTTON = "Get Quote";
 
-    // HTML ID Identifiers
-    final String PURCHASE_STAGE = "#purchaseDropdown";
-    final String CONSENT ="#MKTConsent";
-
-
-
+    // HTML Identifiers
+    private static final String PURCHASE_STAGE = "#purchaseDropdown";
+    private static final String CONSENT = "#MKTConsent";
 
     public void acceptCookies() {
-        Locator cookiesAcceptAllButton;
-
-        cookiesAcceptAllButton = page.getByRole(AriaRole.BUTTON,
+        Locator cookiesAcceptAllButton = page.getByRole(AriaRole.BUTTON,
                 new Page.GetByRoleOptions().setName(COOKIE_ACCEPT).setExact(true));
         cookiesAcceptAllButton.click();
     }
 
-    public void completeForm(dto.Home content) {
+    public void requestInstantQuote(dto.Home content) {
         Locator purchasePrice = page.getByPlaceholder(PURCHASE_PRICE);
         purchasePrice.fill(content.getPurchasePrice());
 
@@ -40,8 +35,8 @@ public class Home extends Common {
 
         Locator firstTimeBuyer = page.getByRole(AriaRole.CHECKBOX,
                 new Page.GetByRoleOptions().setName(FIRST_TIME_BUYER).setExact(true));
-                    if(content.getFirstTimeBuyer().equals("Yes")) {
-                    firstTimeBuyer.check();
+        if (content.getFirstTimeBuyer().equals("Yes")) {
+            firstTimeBuyer.check();
         }
 
         Locator name = page.getByPlaceholder(NAME);
@@ -56,14 +51,13 @@ public class Home extends Common {
         Locator postcode = page.getByPlaceholder(POSTCODE);
         postcode.fill(content.getPostcode());
 
-        // consent same variable name as in home.java and feature - is it ok?
         Locator consent = page.locator(CONSENT);
         if(content.getConsent().equals("No")) {
             consent.uncheck();
         }
 
-        Locator getQuote_button = page.getByRole(AriaRole.BUTTON,
+        Locator getQuote = page.getByRole(AriaRole.BUTTON,
                 new Page.GetByRoleOptions().setName(GET_QUOTE_BUTTON).setExact(true));
-        getQuote_button.click();
+        getQuote.click();
     }
 }
