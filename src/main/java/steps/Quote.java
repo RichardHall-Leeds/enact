@@ -35,5 +35,4 @@ public class Quote {
     public void verifyInstructNowShows() {
         quote.verifyInstructNowShows();
     }
-
 }

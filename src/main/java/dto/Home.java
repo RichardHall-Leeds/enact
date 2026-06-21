@@ -5,13 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// TO CHECK  with john what these were
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-
 public class Home {
 
     private String purchasePrice;

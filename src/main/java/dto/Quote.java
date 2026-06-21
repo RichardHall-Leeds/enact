@@ -17,7 +17,6 @@ public class Quote {
     private String totalFeeAndSearchPack;
     private String estimatedTotal;
 
-
     public static Quote decode(DTOMap row) {
         return new Quote(
                 row.get("purchasePrice"),

@@ -18,9 +18,9 @@ public class Quote extends Common {
 
     // HTML Identifiers
     private static final String PURCHASE_PRICE = "[data-enact-result-field='PurchasePrice']";
-    private static final String TOTAL_CONVEYANCE_FEE = "[data-enact-result-field='TotalFeeIncVAT']";
+    private static final String TOTAL_CONVEYANCE_FEES = "[data-enact-result-field='TotalFeeIncVAT']";
     private static final String TOTAL_FEE_AND_SEARCH_PACK = "[data-enact-result-field='TotalFeeAndSearchPackIncVAT']";
-    private static final String ESTIMATED_TOTAL = "[data-enact-contains-result-field='Purchase-EstimatedTotalIncVAT'] [data-enact-result-field='EstimatedTotalIncVAT']"; ;
+    private static final String ESTIMATED_TOTAL = "[data-enact-contains-result-field='Purchase-EstimatedTotalIncVAT'] [data-enact-result-field='EstimatedTotalIncVAT']";
     private static final String QUOTE_NUMBER = "[data-enact-result-field='QuoteID']";
 
     public void verifyQuoteSummary(dto.Quote content) {
@@ -34,7 +34,7 @@ public class Quote extends Common {
     }
 
     public void verifyTotalCosts(dto.Quote content) {
-        Locator totalConveyancingFees = page.locator(TOTAL_CONVEYANCE_FEE);
+        Locator totalConveyancingFees = page.locator(TOTAL_CONVEYANCE_FEES);
         assertThat(totalConveyancingFees).hasText(content.getTotalConveyancingFees());
 
         Locator totalFeeSearchPack = page.locator(TOTAL_FEE_AND_SEARCH_PACK);

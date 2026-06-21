@@ -3,7 +3,7 @@ package po;
 import com.microsoft.playwright.*;
 
 public class Common {
-    static  Page page;
+    static Page page;
 
     public void open() {
         Playwright playwright = Playwright.create();
@@ -14,9 +14,11 @@ public class Common {
     }
 
     public void navigate(String url) {
-        toString();
         page.navigate(url);
     }
 }
+
+    // TO ADD closure of browser and playwright
+
 
 
