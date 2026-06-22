@@ -16,12 +16,12 @@ public class Quote {
         return dto.Quote.decode(new DTOMap(row));
     }
 
-    @Then("the system-generated Total costs are correct on the Quote screen")
+    @Then("the system-generated Total costs are correct on the Quote screen:")
     public void verifyTotalCosts(List<dto.Quote> expectedValues) {
         quote.verifyTotalCosts(expectedValues.get(0));
     }
 
-    @Then("the Quote Summary section matches the user inputs")
+    @Then("the Quote Summary section matches the user inputs:")
     public void verifyQuoteSummary(List<dto.Quote> expectedValues) {
         quote.verifyQuoteSummary(expectedValues.get(0));
     }
@@ -31,7 +31,7 @@ public class Quote {
         quote.verifyQuoteNumber(digits);
     }
 
-    @Then("the Instruct Now link is displayed on the Quote screen")
+    @Then("the Instruct Now link is displayed")
     public void verifyInstructNowShows() {
         quote.verifyInstructNowShows();
     }

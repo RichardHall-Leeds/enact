@@ -22,7 +22,7 @@ public class Home {
         home.acceptCookies();
     }
 
-    @When("I submit an Instant Quote submitting the following details:")
+    @When("I submit an Instant Quote with the following details:")
     public void requestInstantQuote(List<dto.Home> expectedValues) {
         home.requestInstantQuote(expectedValues.get(0));
         }
