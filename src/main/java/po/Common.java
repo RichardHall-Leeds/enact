@@ -7,7 +7,7 @@ public class Common {
 
     public void open() {
         Playwright playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(800));
         BrowserContext context = browser.newContext();
         page = context.newPage();
 
