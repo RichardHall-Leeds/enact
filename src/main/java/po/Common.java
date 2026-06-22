@@ -10,7 +10,6 @@ public class Common {
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(800));
         BrowserContext context = browser.newContext();
         page = context.newPage();
-
     }
 
     public void navigate(String url) {

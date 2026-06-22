@@ -30,7 +30,6 @@ public class Quote extends Common {
         Locator tenureRow = page.getByRole(AriaRole.ROW,
             new Page.GetByRoleOptions().setName(TENURE));
         assertThat(tenureRow).containsText(content.getTenure());
-
     }
 
     public void verifyTotalCosts(dto.Quote content) {
@@ -42,7 +41,6 @@ public class Quote extends Common {
 
         Locator estimatedTotal = page.locator(ESTIMATED_TOTAL);
         assertThat(estimatedTotal).hasText(content.getEstimatedTotal());
-
     }
 
     public void verifyQuoteNumber(int digits) {

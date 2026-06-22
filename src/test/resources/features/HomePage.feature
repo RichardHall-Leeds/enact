@@ -5,7 +5,7 @@ Feature: Enact.co.uk Home page interactions
     And I navigate to https://www.enact.co.uk/
     And I accept cookies
 
-  Scenario: Submit Instant Quote to verify figures and key fields show
+  Scenario: Submit Instant Quote - verify figures and key fields show
     When I submit an Instant Quote with the following details:
       | purchasePrice | purchaseStage  | firstTimeBuyer | name             | email                | phone        | postcode | consent |
       | 200000.00     | Offer accepted | Yes            | Test User Ignore | test@testemail.co.uk | 07824 441111 | SW1A 2AA | No      |
