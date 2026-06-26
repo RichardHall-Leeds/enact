@@ -2,7 +2,7 @@ Feature: Enact.co.uk Home page interactions
 
   Background:
     Given I open a browser
-    And I navigate to https://www.enact.co.uk/
+    And I navigate to the platform
     And I accept cookies
 
   Scenario: Submit Instant Quote - verify figures and key fields show

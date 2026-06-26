@@ -56,8 +56,8 @@ public class Home extends Common {
             consent.uncheck();
         }
 
-        Locator getQuote = page.getByRole(AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName(GET_QUOTE_BUTTON).setExact(true));
-        getQuote.click();
+//        Locator getQuote = page.getByRole(AriaRole.BUTTON,
+//                new Page.GetByRoleOptions().setName(GET_QUOTE_BUTTON).setExact(true));
+//        getQuote.click();
     }
 }

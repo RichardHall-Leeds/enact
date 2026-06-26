@@ -25,7 +25,7 @@ public class Common {
 
     public void navigate(String url) {
         page.navigate(url);
-    }
+       }
 
     public void close() {
         if (context != null) context.close();
